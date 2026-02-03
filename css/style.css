@@ -521,6 +521,10 @@ footer a:hover {
         max-width: 320px;
         margin: 0 auto;
     }
+
+    header p{
+        display: none;
+    }
 }
 
 /* testes
