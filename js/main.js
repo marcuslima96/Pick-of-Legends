@@ -63,7 +63,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupLaneButtons();
     document.getElementById('randomize-btn').addEventListener('click', randomizeChampion);
     
-    // Listeners do Carrossel
     document.getElementById('prev-skin').addEventListener('click', (e) => {
         e.stopPropagation();
         changeSkin(-1);
@@ -125,7 +124,13 @@ async function randomizeChampion() {
         currentSkins = fullDetails.skins;
         currentSkinIndex = 0;
 
+        // Atualiza info básica (nome, titulo)
         updateBasicInfo(fullDetails);
+        
+        // Atualiza imagem com efeito suave
+        updateSkinDisplay();
+
+        // Atualiza habilidades
         updateAbilities(fullDetails);
 
         if (card) {
@@ -155,6 +160,7 @@ function clearCardData() {
     if (nameEl) nameEl.textContent = 'Carregando...';
     if (titleEl) titleEl.textContent = '';
     
+    // Limpa apenas as skills, NÃO mexe na imagem principal (#champion-img)
     const skills = ['passive', 'q', 'w', 'e', 'r'];
     skills.forEach(slot => {
         const img = document.getElementById(`${slot}-skill`);
@@ -173,8 +179,6 @@ function updateBasicInfo(details) {
     
     const titleEl = document.getElementById('champion-title');
     if (titleEl) titleEl.textContent = details.title; 
-
-    updateSkinDisplay();
 }
 
 function updateSkinDisplay() {
@@ -182,31 +186,43 @@ function updateSkinDisplay() {
     const imgEl = document.getElementById('champion-img');
     const mobileSrcEl = document.getElementById('champion-mobile-src');
     const titleEl = document.getElementById('champion-title');
-
     const champData = allChampionsData[currentChampId];
-
-    imgEl.style.opacity = "0";
 
     const splashUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${currentChampId}_${skin.num}.jpg`;
     const loadingUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${currentChampId}_${skin.num}.jpg`;
 
-    if (imgEl && mobileSrcEl) {
-        mobileSrcEl.srcset = loadingUrl;
-        
-        imgEl.onload = () => {
-            imgEl.style.opacity = "1";
+    if (imgEl) {
+        // 1. Aplica o desfoque na imagem ATUAL (que ainda está lá)
+        imgEl.classList.add('loading');
+
+        // 2. Pré-carrega a nova imagem na memória
+        const tempImg = new Image();
+        tempImg.src = splashUrl;
+
+        // 3. Quando a nova imagem estiver baixada...
+        tempImg.onload = () => {
+            // Troca o source oficial
+            imgEl.src = splashUrl;
+            if (mobileSrcEl) mobileSrcEl.srcset = loadingUrl;
+            
+            // Remove o "vazio" e o desfoque
+            imgEl.classList.remove('empty');
+            imgEl.classList.remove('loading');
+
+            // Atualiza título da skin
+            if (titleEl && champData) {
+                if (skin.num === 0 || skin.name.toLowerCase() === 'default') {
+                    titleEl.textContent = champData.title; 
+                } else {
+                    titleEl.textContent = skin.name; 
+                }
+            }
         };
 
-        imgEl.src = splashUrl;
-        imgEl.classList.remove('empty');
-        
-        if (titleEl && champData) {
-            if (skin.num === 0 || skin.name.toLowerCase() === 'default') {
-                titleEl.textContent = champData.title; 
-            } else {
-                titleEl.textContent = skin.name; 
-            }
-        }
+        // Fallback: Se der erro ao carregar, remove o blur mesmo assim
+        tempImg.onerror = () => {
+            imgEl.classList.remove('loading');
+        };
     }
 }
 
@@ -251,9 +267,7 @@ function updateSkillUI(slot, name, desc, imgFile, isPassive = false) {
     if (descEl) descEl.innerHTML = desc;
 }
 
-
 // debug
-
 window.testar = async (id) => {
     currentLane = 'mid'; 
     currentChampId = id;
@@ -261,6 +275,7 @@ window.testar = async (id) => {
     currentSkins = details.skins;
     currentSkinIndex = 0;
     updateBasicInfo(details);
+    updateSkinDisplay(); 
     updateAbilities(details);
     document.getElementById('champion-card').classList.remove('hidden');
     document.getElementById('champion-card').classList.add('visible');
