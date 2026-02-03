@@ -528,6 +528,7 @@ footer a:hover {
 
     .container{
         justify-content: flex-start;
+        margin-top: 1rem;
     }
 }
 
