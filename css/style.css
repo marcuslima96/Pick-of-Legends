@@ -150,7 +150,7 @@ header p {
 
 .lane-btn.active img {
     filter: drop-shadow(0 0 7px var(--accent-color));
-    transform: scale(1.3);
+    transform: scale(1.5);
     transition: all 0.1s ease;
 }
 
