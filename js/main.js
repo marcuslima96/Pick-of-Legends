@@ -268,7 +268,7 @@ function updateSkillUI(slot, name, desc, imgFile, isPassive = false) {
 }
 
 // debug
-window.testar = async (id) => {
+/* window.testar = async (id) => {
     currentLane = 'mid'; 
     currentChampId = id;
     const details = await DataDragonAPI.fetchChampionDetails(id);
@@ -280,4 +280,4 @@ window.testar = async (id) => {
     document.getElementById('champion-card').classList.remove('hidden');
     document.getElementById('champion-card').classList.add('visible');
     console.log(`Testando campeão: ${id}`);
-};
+};*/
