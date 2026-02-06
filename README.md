@@ -28,14 +28,6 @@ O sistema consome a API oficial **Data Dragon** da Riot Games, garantindo que as
 * **Visualizador de Skins:** Navegue pelas setas laterais para ver todas as skins (aparências) disponíveis para o campeão sorteado.
 * **Skills:** Visualização rápida dos ícones das habilidades do campeão.
 
----
-
-## 📷 Preview
-
-![Pick of Legends Preview](https://github.com/marcuslima96/Pick-of-Legends/blob/main/caminho-para-sua-imagem.jpg?raw=true)
-*(Substitua o link acima pelo caminho real da imagem no seu repositório)*
-
----
 
 ## 🛠 Tecnologias Utilizadas
 
