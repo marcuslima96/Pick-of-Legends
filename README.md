@@ -44,4 +44,5 @@ O projeto foi construído sem o uso de frameworks, focando na base do desenvolvi
 
 Feito por **Marcus Lima**.
 
-[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/seulink/)](https://www.linkedin.com/in/seulink/)
+
+[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/marcus-lima96/)]([https://www.linkedin.com/in/seulink/](https://www.linkedin.com/in/marcus-lima96/))
